@@ -1,0 +1,73 @@
+{
+  "properties": {
+    "activities": [
+      {
+        "name": "Run_Bronze_Ingestion",
+        "type": "TridentNotebook",
+        "dependsOn": [],
+        "typeProperties": {
+          "workspaceId": "a8981880-d8c4-48dd-83b7-43f809fba42b",
+          "notebookId": "49adbe89-d786-475b-b7ad-5b8364be6cf6"
+        }
+      },
+      {
+        "name": "Run_Silver_Cleansing",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          {
+            "activity": "Run_Bronze_Ingestion",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "workspaceId": "a8981880-d8c4-48dd-83b7-43f809fba42b",
+          "notebookId": "67831ddf-c40c-4d20-8d3c-92d00983c3ed"
+        }
+      },
+      {
+        "name": "Run_Gold_Serving",
+        "type": "TridentNotebook",
+        "dependsOn": [
+          {
+            "activity": "Run_Silver_Cleansing",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "workspaceId": "a8981880-d8c4-48dd-83b7-43f809fba42b",
+          "notebookId": "932dbaa6-2833-4404-9b77-11219d8ce633"
+        }
+      },
+      {
+        "name": "Refresh_sm_scores",
+        "type": "PBISemanticModelRefresh",
+        "dependsOn": [
+          {
+            "activity": "Run_Gold_Serving",
+            "dependencyConditions": [
+              "Succeeded"
+            ]
+          }
+        ],
+        "typeProperties": {
+          "method": "POST",
+          "groupId": "a8981880-d8c4-48dd-83b7-43f809fba42b",
+          "datasetId": "9fd4ce43-7aef-478b-8bd3-67cb79bb6aaf",
+          "type": "Full",
+          "commitMode": "transactional",
+          "maxParallelism": 2,
+          "retryCount": 1,
+          "waitOnCompletion": true,
+          "operationType": "RefreshDataset"
+        },
+        "externalReferences": {
+          "connection": "717cfdce-d038-44b4-b870-97a399538ef3"
+        }
+      }
+    ]
+  }
+}
