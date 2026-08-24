@@ -1,0 +1,25 @@
+{
+  "workspaceName": "FrontierDataClubMCPdemo",
+  "workspaceId": "a8981880-d8c4-48dd-83b7-43f809fba42b",
+  "semanticModelName": "sm_scores",
+  "semanticModelId": "9fd4ce43-7aef-478b-8bd3-67cb79bb6aaf",
+  "notebookRuns": [
+    {
+      "notebook": "nb_scores_bronze_ingestion.Notebook",
+      "result": "[Unsupported command] not supported for command &#x27;job run&#x27;",
+      "executedAtUtc": "2026-08-24T15:12:44.4406040Z"
+    },
+    {
+      "notebook": "nb_scores_silver_cleansing.Notebook",
+      "result": "[Unsupported command] not supported for command &#x27;job run&#x27;",
+      "executedAtUtc": "2026-08-24T15:12:45.7308459Z"
+    },
+    {
+      "notebook": "nb_scores_gold_serving.Notebook",
+      "result": "[Unsupported command] not supported for command &#x27;job run&#x27;",
+      "executedAtUtc": "2026-08-24T15:12:46.8792930Z"
+    }
+  ],
+  "refreshResult": "{\r\n  \"status_code\": 404,\r\n  \"text\": \"(Empty)\"\r\n}",
+  "completedAtUtc": "2026-08-24T15:12:49.0336172Z"
+}
