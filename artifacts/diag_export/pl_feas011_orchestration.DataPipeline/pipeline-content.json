@@ -1,0 +1,73 @@
+{
+    "properties": {
+        "activities": [
+            {
+                "name": "Run_Bronze_Ingestion",
+                "type": "TridentNotebook",
+                "dependsOn": [],
+                "typeProperties": {
+                    "workspaceId": "a8981880-d8c4-48dd-83b7-43f809fba42b",
+                    "notebookId": "478f4279-0275-4112-8f23-fd0ac1318b73"
+                }
+            },
+            {
+                "name": "Run_Silver_Cleansing",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "Run_Bronze_Ingestion",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "typeProperties": {
+                    "workspaceId": "a8981880-d8c4-48dd-83b7-43f809fba42b",
+                    "notebookId": "6c9857bb-b228-460a-89dc-f51be85d8d7f"
+                }
+            },
+            {
+                "name": "Run_Gold_Serving",
+                "type": "TridentNotebook",
+                "dependsOn": [
+                    {
+                        "activity": "Run_Silver_Cleansing",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "typeProperties": {
+                    "workspaceId": "a8981880-d8c4-48dd-83b7-43f809fba42b",
+                    "notebookId": "14265c7c-e018-4f55-9420-8b1c51c5d3f7"
+                }
+            },
+            {
+                "name": "Refresh_sm_users",
+                "type": "PBISemanticModelRefresh",
+                "dependsOn": [
+                    {
+                        "activity": "Run_Gold_Serving",
+                        "dependencyConditions": [
+                            "Succeeded"
+                        ]
+                    }
+                ],
+                "typeProperties": {
+                    "method": "POST",
+                    "groupId": "a8981880-d8c4-48dd-83b7-43f809fba42b",
+                    "datasetId": "41406884-6b2a-4bc7-b348-d99866846112",
+                    "type": "Full",
+                    "commitMode": "transactional",
+                    "maxParallelism": 2,
+                    "retryCount": 1,
+                    "waitOnCompletion": true,
+                    "operationType": "RefreshDataset"
+                },
+                "externalReferences": {
+                    "connection": "717cfdce-d038-44b4-b870-97a399538ef3"
+                }
+            }
+        ]
+    }
+}
