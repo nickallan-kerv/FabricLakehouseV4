@@ -10,5 +10,6 @@ Completed:
 - Retrieved item metadata via Fabric REST (`fab api`).
 
 Notes:
-- Fabric CLI/REST payload does not expose a direct boolean flag for schema enablement in the returned lakehouse properties payload.
-- Schema behavior will be validated functionally in notebook execution by writing to bronze/silver/gold schema-qualified table names.
+- Fabric CLI supports schema-enabled creation via `-P enableSchemas=true` on lakehouse create.
+- Returned lakehouse metadata still may not show a dedicated schema-enabled boolean field, so functional validation remains required.
+- Schema behavior should be validated by running bronze/silver/gold schema-qualified notebook writes and verifying table visibility under those schema folders.

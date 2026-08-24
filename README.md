@@ -26,7 +26,8 @@ Deliver and evidence an automated path for:
 
 ## Automation Steps (Execution Scope)
 
-1. Create lakehouse `lh_medallion_nickman` with schemas enabled.
+1. Create lakehouse `lh_medallion_nickman` with schemas enabled:
+   - `fab mkdir FrontierDataClubMCPdemo.Workspace/lh_medallion_nickman.Lakehouse -P enableSchemas=true`
 2. Connect Copilot to Supabase MCP:
    - `copilot mcp add --transport http supabase "https://mcp.supabase.com/mcp?project_ref=wnjnbddbguunhiubcxpg&features=docs%2Caccount%2Cdatabase%2Cdebugging%2Cdevelopment%2Cfunctions%2Cbranching"`
 3. Authenticate MCP:
